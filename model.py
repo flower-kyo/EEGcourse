@@ -4,7 +4,7 @@ import torch.nn as nn
 class MiniTinySleepNet(nn.Module):
     def __init__(self):
         super(MiniTinySleepNet, self).__init__()
-        self.conv1 = nn.Conv1d(in_channels=2, out_channels=128, kernel_size=50, stride=6)
+        self.conv1 = nn.Conv1d(in_channels=1, out_channels=128, kernel_size=50, stride=6)
         self.max_pool1 = nn.MaxPool1d(kernel_size=8, stride=8)
         self.dropout1 = nn.Dropout(p=0.5)
         self.convs = nn.Sequential(

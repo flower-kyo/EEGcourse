@@ -28,23 +28,22 @@ class SupDataset(Dataset):
             file_path = os.path.join(data_dir, file)
             npz_data =np.load(file_path)
 
-            fpz_cz = npz_data['eeg_fpz_cz']
-            pz_oz = npz_data['eeg_pz_oz']
-            annotation = npz_data['annotation']
-            fpz_cz = np.expand_dims(fpz_cz, 1)
-            pz_oz = np.expand_dims(pz_oz, 1)
-            signals = np.concatenate([fpz_cz, pz_oz], axis=1)
+            x = npz_data['x']
+            y = npz_data['y']
+            x = np.expand_dims(x, 1)
 
-            data.append(signals)
-            label.append(annotation)
+
+            data.append(x)
+            label.append(y)
 
         data = np.concatenate(data, axis=0)
         label = np.concatenate(label, axis=0)
         self.data = torch.from_numpy(data).float()
         self.label = torch.from_numpy(label).long()
 
-    def __getitem__(self, item):
-        return self.data[item], self.label[item]
+    def __getitem__(self, index):
+        return self.data[index], self.label[index]
 
     def __len__(self):
         return self.data.shape[0]
+

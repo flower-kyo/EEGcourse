@@ -13,7 +13,7 @@ from model import MiniTinySleepNet
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_dir", type=str, default="/data/zhanghj/eeg/dataset/eeg-edf/sleepedf39",
+    parser.add_argument("--data_dir", type=str, default="/data/ZhangHongjun/codes/sleep/openpai/data/sleepedf/sleep-cassette/eeg_fpz_cz",
                         help="where the sleep eeg data locate")
 
     parser.add_argument("--n_fold", type=int,
@@ -72,8 +72,10 @@ def main():
         clr_net = MiniTinySleepNet()
         train_files, valid_files = get_train_valid_data(data_dir=data_dir, n_fold=n_fold, fold_idx=f)
 
+        # train_dataset = SupDataset(data_dir=data_dir, file_list=train_files, data_name=data_name)
         train_dataset = SupDataset(data_dir=data_dir, file_list=train_files, data_name=data_name)
         train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4)
+
 
         valid_dataset = SupDataset(data_dir=data_dir, file_list=valid_files, data_name=data_name)
         valid_loader = torch.utils.data.DataLoader(valid_dataset, batch_size=batch_size, shuffle=False, num_workers=4)
